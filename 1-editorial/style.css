@@ -1,0 +1,611 @@
+/* "Quiet paper".
+   One text serif (Source Serif 4, self-hosted, OFL), paper and ink, one accent, hairline rules.
+   Six pages share this file. Mobile first. From 73rem the page gains a left label column
+   (section numbers, dates, labels, photographs) and a right margin for side-notes. */
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("fonts/source-serif-4-text.woff2") format("woff2");
+  font-weight: 400 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("fonts/source-serif-4-text-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Display";
+  src: url("fonts/source-serif-4-display.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Display";
+  src: url("fonts/source-serif-4-display-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+:root {
+  --paper: #f5f2ea;
+  --ink: #1d1b18;
+  --muted: #5f584d;
+  --rule: #cdc6b7;
+  --tile: #e6e0d2;
+  --accent: #7b2323;          /* oxblood */
+  --accent-line: #b98a84;     /* the accent, thinned, for underlines */
+
+  --text: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --display: "Source Serif 4 Display", "Source Serif 4", "Iowan Old Style", Georgia, serif;
+
+  --fs: 1.1875rem;            /* 19px body on a phone */
+  --lh: 1.5;
+  --line: calc(var(--fs) * var(--lh));
+  --pad: 1.375rem;
+  --measure: 36rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #181715;
+    --ink: #e9e4d9;
+    --muted: #a8a092;
+    --rule: #3d3a34;
+    --tile: #2a2824;
+    --accent: #dba294;
+    --accent-line: #8f6a61;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 1.25rem;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+h1, h2, h3, p, ul, ol, dl, dd, blockquote, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+h1, h2, h3 { font-weight: 400; text-wrap: balance; }
+p, li, dd { text-wrap: wrap; }
+.prose p, .ptopic, .afterword, .lede { text-wrap: pretty; }
+cite { font-style: italic; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--accent-line);
+}
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.email { overflow-wrap: anywhere; }
+
+.skip {
+  position: absolute; left: var(--pad); top: -4rem;
+  padding: 0.6rem 0.9rem; background: var(--ink); color: var(--paper);
+  text-decoration: none; z-index: 2;
+}
+.skip:focus { top: 0.5rem; }
+.skip:hover { color: var(--paper); }
+
+/* Small caps: true ones, from the font. */
+.label {
+  font-variant-caps: all-small-caps;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-style: normal;
+}
+.runin { margin-right: 0.15em; color: var(--accent); }
+/* Titles in lists are links, but a column of full-strength underlines is noisy: thin them. */
+.side-papers a, .refs a, .side-list a { text-decoration-color: var(--rule); }
+.side-papers a:hover, .refs a:hover, .side-list a:hover { text-decoration-color: currentColor; }
+
+/* ---------- Ornament: a row of filled and hollow dots ---------- */
+.dots { display: flex; line-height: 0; color: var(--ink); }
+.dots i {
+  flex: none;
+  width: 0.3125rem; height: 0.3125rem;
+  margin-right: 0.4375rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.dots i.f { background: currentColor; }
+.dots--rule { color: var(--muted); margin-bottom: calc(var(--line) * 1.1); }
+.dots--end { color: var(--muted); margin-top: calc(var(--line) * 1.5); }
+
+.dots--title { margin-bottom: calc(var(--line) * 1); }
+.dots--title i {
+  width: min(0.5rem, 2.05vw); height: min(0.5rem, 2.05vw);
+  margin-right: min(0.5rem, 2.05vw);
+  border-width: 1.25px;
+}
+/* Three dots fill in once, a few seconds apart. Their resting state is filled;
+   the animation only delays it, so nothing is lost with reduced motion. */
+.dots--title i.late {
+  background: var(--accent); border-color: var(--accent);
+  animation: fill-in 2.2s ease-in-out backwards;
+}
+.dots--title i.l1 { animation-delay: 1.4s; }
+.dots--title i.l2 { animation-delay: 3s; }
+.dots--title i.l3 { animation-delay: 4.6s; }
+@keyframes fill-in {
+  from { background: transparent; border-color: var(--ink); }
+  to   { background: var(--accent); border-color: var(--accent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dots--title i.late { animation: none; }
+}
+
+/* ---------- Page frame (one column) ---------- */
+.grid, .frame {
+  max-width: calc(var(--measure) + 2 * var(--pad));
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+.grid .grid { max-width: none; padding-inline: 0; }
+
+/* ---------- Header: wordmark and the five pages ---------- */
+.bar { padding-top: calc(var(--line) * 0.9); }
+
+.wordmark {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--ink);
+  padding-block: 0.25rem;               /* comfortable tap target */
+}
+.wordmark:hover { color: var(--ink); }
+.wordmark:hover .wm-sub { color: var(--accent); }
+.wm-title {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.1875rem, 5.4vw, 1.4375rem);
+  line-height: 1.12;
+  letter-spacing: -0.004em;
+  font-variant-numeric: lining-nums;
+}
+.wm-line { display: block; }
+.amp { font-style: italic; color: var(--accent); padding-right: 0.04em; }
+.wm-sub {
+  display: block;
+  margin-top: 0.4em;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+
+/* Home: the same wordmark, set as a title page. */
+.masthead--home .bar { padding-top: calc(var(--line) * 2); }
+.masthead--home h1 { margin: 0; }
+.masthead--home .wm-title {
+  font-size: clamp(2rem, 10.2vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.016em;
+  margin-left: -0.03em;
+  text-wrap: balance;
+}
+.masthead--home .wm-line { display: inline; }
+.masthead--home .wm-sub {
+  font-size: 0.9375rem;
+  margin-top: calc(var(--line) * 0.7);
+}
+
+/* Navigation: a plain ruled row of page names. It wraps on a phone; no menu button. */
+.contents {
+  border-block: 1px solid var(--rule);
+  margin-top: calc(var(--line) * 0.8);
+}
+.masthead--home .contents { margin-top: calc(var(--line) * 1.4); }
+.contents ul {
+  display: flex; flex-wrap: wrap;
+  column-gap: 1rem;
+  padding-block: 0.125rem;
+}
+.contents a {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 2.75rem;                 /* 44px tap target */
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.contents a:hover { text-decoration: underline; text-decoration-thickness: 0.055em; }
+/* The current page: oxblood, with one filled dot. */
+.contents a[aria-current="page"] { color: var(--accent); }
+.contents a[aria-current="page"]::before {
+  content: "";
+  display: inline-block;
+  width: 0.3125rem; height: 0.3125rem;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.2em;
+}
+
+/* ---------- Page heading (inner pages) and the home lede ---------- */
+.pagehead { padding-top: calc(var(--line) * 2); }
+.pagehead h1 {
+  font-family: var(--display);
+  font-size: clamp(2.625rem, 11.5vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.016em;
+  margin-left: -0.03em;
+}
+.lede {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.3125rem, 5.4vw, 1.75rem);
+  line-height: 1.3;
+  margin-top: calc(var(--line) * 0.7);
+  max-width: 24em;
+}
+.pagehead--home { padding-top: calc(var(--line) * 1.6); }
+.pagehead--home .lede { margin-top: 0; }
+.intro-plain { margin-top: calc(var(--line) * 0.8); font-size: 1.04em; }
+
+/* ---------- Sections ---------- */
+section, .colophon, .pointer { padding-top: calc(var(--line) * 2.75); }
+.pagehead + section { padding-top: calc(var(--line) * 2.25); }
+/* The page heading already carries a row of dots: the first section does without its own,
+   but keeps the (empty) grid row so that margin notes stay in line. */
+.pagehead + section > .dots--rule { visibility: hidden; height: 0; margin: 0; }
+
+h2 {
+  font-family: var(--display);
+  font-size: 1.875rem;
+  line-height: 1.15;
+  letter-spacing: -0.008em;
+  margin-bottom: calc(var(--line) * 0.75);
+  position: relative;
+}
+h2 .num { color: var(--accent); margin-right: 0.3em; font-variant-numeric: lining-nums; }
+
+.prose p + p { text-indent: 1.4em; }
+
+/* Side-notes. On a phone they fold in under the text; on a wide screen they move to the margin. */
+.side {
+  font-size: 0.86em;
+  line-height: 1.45;
+  margin-top: calc(var(--line) * 0.8);
+}
+.side::before {
+  content: ""; display: block;
+  width: 3.5rem; border-top: 1px solid var(--ink);
+  margin-bottom: 0.9em;
+}
+.sidenote + .sidenote, .side-list + .sidenote { margin-top: 0.9em; }
+.side-label { margin-top: 0.9em; color: var(--accent); }
+.side-list li { margin-top: 0.35em; }
+.side-list a { display: inline-block; padding-block: 0.3em; }
+
+/* The notice (no funded positions): a double rule. */
+.notice {
+  border: 3px double var(--ink);
+  padding: 0.85em 1em 0.95em;
+}
+.notice h2, .notice h3 {
+  font-family: var(--text);
+  font-size: 1em; color: var(--accent); line-height: 1.3; margin-bottom: 0.3em;
+}
+.notice p + p { margin-top: 0.55em; }
+.notice--lede { margin-top: calc(var(--line) * 1); }
+.notice--lede p { font-size: 1.12em; line-height: 1.42; }
+
+.go::after { content: "\00a0\2192"; }
+.onward { margin-top: calc(var(--line) * 1.2); }
+.onward a { display: inline-block; padding-block: 0.4em; }
+
+/* ---------- Home: research teasers ---------- */
+.teasers li + li { margin-top: calc(var(--line) * 0.85); }
+.teasers h3 {
+  font-family: var(--display);
+  font-size: 1.4375rem;
+  line-height: 1.2;
+  position: relative;
+}
+.teasers h3 a { text-decoration-color: var(--rule); }
+.teasers h3 a:hover { text-decoration-color: currentColor; }
+.teasers .num { color: var(--muted); margin-right: 0.25em; font-variant-numeric: lining-nums; }
+.teasers p { font-style: italic; color: var(--muted); margin-top: 0.1em; }
+
+/* ---------- Research ---------- */
+.theme { scroll-margin-top: 1.25rem; }
+.theme + .theme { margin-top: calc(var(--line) * 2.25); }
+.theme + .theme::before {
+  content: ""; display: block;
+  height: 1px; background: var(--rule);
+  margin-bottom: calc(var(--line) * 2);
+}
+.theme h2 { margin-bottom: 0; }
+.theme-short { font-style: italic; margin-top: 0.25em; }
+.theme-body { margin-top: calc(var(--line) * 0.6); }
+.side-papers li { margin-top: 0.5em; }
+.side-papers .src { display: block; color: var(--muted); }
+
+/* ---------- People ---------- */
+.person {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  column-gap: 1rem;
+  align-content: center;
+  min-height: 3.5rem;
+}
+.person + .person { margin-top: calc(var(--line) * 0.85); }
+.face {
+  grid-row: 1 / span 2;
+  width: 3.5rem; height: 3.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--tile);
+}
+.face img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+}
+.face--initials {
+  display: grid; place-items: center;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: lining-nums;
+  color: var(--muted);
+}
+.pwho { line-height: 1.3; align-self: end; }
+.pname { font-weight: 600; }
+.prole { display: block; color: var(--muted); font-size: 0.9em; letter-spacing: 0.05em; }
+.ptopic { font-size: 0.92em; line-height: 1.4; margin-top: 0.15em; align-self: start; }
+.thanks { text-wrap: pretty; }
+
+/* ---------- Label-and-text lists (routes, alumni, footer) ---------- */
+.status { font-size: 1.12em; line-height: 1.42; }
+.deflist { margin-top: calc(var(--line) * 0.9); }
+.prose + .deflist { margin-top: calc(var(--line) * 0.9); }
+h2 + .deflist { margin-top: 0; }
+.deflist > div + div { margin-top: calc(var(--line) * 0.65); }
+.deflist dt { color: var(--muted); }
+.afterword { font-style: italic; margin-top: calc(var(--line) * 0.9); }
+h2 + .afterword { margin-top: 0; }
+.write { margin-top: calc(var(--line) * 0.7); }
+.write a { display: inline-block; padding-block: 0.35em; }
+
+/* ---------- News ---------- */
+.notes li + li { margin-top: calc(var(--line) * 0.75); }
+.notes time { display: block; color: var(--muted); white-space: nowrap; }
+.notes .go { margin-left: 0.15em; white-space: nowrap; }
+
+/* ---------- How we work ---------- */
+.pull p {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.375rem;
+  line-height: 1.3;
+  text-indent: -0.42em;            /* hang the opening quotation mark */
+  text-wrap: pretty;
+}
+.pull + .pull { margin-top: calc(var(--line) * 0.9); }
+.pull--lead p { font-size: 1.625rem; line-height: 1.26; text-wrap: balance; }
+.pull--lead { padding-bottom: calc(var(--line) * 0.3); }
+
+.principles { border-top: 1px solid var(--rule); }
+.principles li { padding-block: calc(var(--line) * 0.42); border-bottom: 1px solid var(--rule); }
+.principles .pt { display: block; color: var(--accent); }
+.principles .pd { display: block; }
+
+/* ---------- Publications ---------- */
+.filter { margin-bottom: calc(var(--line) * 0.8); }
+.filter-label { color: var(--muted); display: block; }
+.filter ul { display: flex; flex-wrap: wrap; column-gap: 0.9rem; }
+.filter button {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  min-height: 2.75rem;
+  text-align: left;
+  font-size: 0.92em;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.filter button:hover { color: var(--accent); text-decoration: underline; text-decoration-thickness: 0.055em; text-underline-offset: 0.2em; }
+.filter button[aria-pressed="true"] { color: var(--accent); }
+.filter button[aria-pressed="true"]::before {
+  content: "";
+  display: inline-block;
+  width: 0.3125rem; height: 0.3125rem;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.2em;
+}
+.shown { color: var(--muted); font-style: italic; font-size: 0.92em; margin-bottom: calc(var(--line) * 0.6); }
+
+.refs { counter-reset: ref; font-size: 0.92em; line-height: 1.45; }
+.refs li { counter-increment: ref; position: relative; padding-left: 2.1em; }
+.refs li + li { margin-top: 0.8em; }
+.refs li::before {
+  content: counter(ref) ".";
+  position: absolute; left: 0; top: 0;
+  color: var(--muted);
+  font-variant-numeric: oldstyle-nums tabular-nums;
+}
+.refs li[hidden] { display: none; }
+.rarea { display: block; color: var(--muted); font-size: 0.95em; }
+.refs[data-filter]:not([data-filter="all"]) .rarea { display: none; }
+.more { margin-top: calc(var(--line) * 0.5); }
+.more button {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  min-height: 2.75rem;
+  font-variant-caps: all-small-caps; letter-spacing: 0.06em;
+  text-decoration: underline; text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.2em; text-decoration-color: var(--accent-line);
+}
+.more button:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+/* ---------- Footer ---------- */
+.colophon { padding-bottom: calc(var(--line) * 3); }
+.colophon h2 { font-size: 1.625rem; }
+.colophon .deflist { margin-top: 0; }
+.colophon-mark {
+  margin-top: calc(var(--line) * 0.6);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-wrap: balance;
+}
+.noscript { max-width: var(--measure); margin: 0 auto; padding: 1rem var(--pad) 0; font-style: italic; }
+
+/* ---------- A little more room on larger phones and tablets ---------- */
+@media (min-width: 40rem) {
+  .contents ul { column-gap: 1.5rem; }
+  .contents a { font-size: 1rem; }
+}
+
+/* ---------- Wide screens: label column | text | margin ---------- */
+@media (min-width: 73rem) {
+  :root { --fs: 1.25rem; --lh: 1.5; }
+
+  .grid, .frame { max-width: none; width: 68rem; padding-inline: 0; }
+  .grid .grid, .themes, .theme, .people, .person, .deflist, .deflist > div, .notes, .notes li, .teasers, .teasers li { width: auto; }
+
+  .grid, .theme, .person, .deflist > div, .notes li, .teasers li, .filter {
+    display: grid;
+    grid-template-columns: 9.5rem 1.5rem 36rem 3rem 18rem;
+    column-gap: 0;
+    align-items: start;
+  }
+  .grid > *, .theme > * { grid-column: 3; }
+  .grid > .themes, .grid > .people, .grid > .deflist, .grid > .notes, .grid > .teasers, .grid > .filter { grid-column: 1 / -1; }
+
+  /* Header, inner pages: wordmark at the left of the frame, pages to the right. */
+  .bar {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem;
+    padding-top: calc(var(--line) * 1.1);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .wm-title { font-size: 1.5rem; }
+  .wm-sub { font-size: 0.875rem; }
+  .bar .contents { border: 0; margin: 0; }
+  .contents ul { column-gap: 1.75rem; padding: 0; }
+
+  /* Header, home: a title page hung on the text column. */
+  .masthead--home .bar { display: block; padding-top: calc(var(--line) * 2.5); padding-bottom: 0; border: 0; }
+  .masthead--home .bar > * { margin-left: 11rem; }
+  .masthead--home .wm-title { font-size: 4.25rem; }
+  .masthead--home .wm-line { display: block; }
+  .masthead--home .wm-sub { font-size: 1.0625rem; }
+  .masthead--home .contents {
+    margin-left: 0; padding-left: 11rem;
+    margin-top: calc(var(--line) * 1.6);
+    border-top: 0; border-bottom: 1px solid var(--rule);
+  }
+
+  .pagehead { padding-top: calc(var(--line) * 2.75); }
+  .pagehead h1 { font-size: 4.25rem; }
+  .lede { font-size: 1.875rem; max-width: none; }
+  .pagehead > .lede, .pagehead > .notice, .pagehead > .intro-plain { grid-column: 3 / span 2; }
+  .pagehead--home { padding-top: calc(var(--line) * 2.25); }
+
+  section, .colophon, .pointer { padding-top: calc(var(--line) * 3.25); }
+  .pagehead + section { padding-top: calc(var(--line) * 2.75); }
+
+  h2 { font-size: 2.125rem; margin-bottom: calc(var(--line) * 0.8); }
+  /* Section and subsection numbers hang in the label column. */
+  h2 .num, .teasers .num {
+    position: absolute; right: calc(100% + 1.5rem); top: 0;
+    margin: 0; white-space: nowrap;
+  }
+
+  /* Margin notes */
+  .grid > .side, .theme > .side {
+    grid-column: 5;
+    margin-top: 0;
+    font-size: 0.8em;
+    line-height: 1.45;
+  }
+  .side::before { content: none; }
+  /* Every section is: dots, heading, one body block; the margin note sits beside the body. */
+  .grid > .side { grid-row: 3; padding-top: 0.3em; }
+
+  /* Research */
+  .theme + .theme { margin-top: calc(var(--line) * 2.5); }
+  .theme + .theme::before { grid-column: 3 / -1; margin-bottom: calc(var(--line) * 2.25); }
+  .theme { grid-template-rows: auto auto 1fr; }
+  .theme > .theme-head { grid-row: 2; }
+  .theme > .theme-body { grid-row: 3; }
+  .theme > .theme-side { grid-row: 2 / span 2; padding-top: 0.55em; }
+  .theme:first-child { grid-template-rows: auto 1fr; }
+  .theme:first-child > .theme-head { grid-row: 1; }
+  .theme:first-child > .theme-body { grid-row: 2; }
+  .theme:first-child > .theme-side { grid-row: 1 / span 2; }
+
+  /* Home teasers */
+  .teasers li > * { grid-column: 3; }
+  .teasers li + li { margin-top: calc(var(--line) * 0.75); }
+  .teasers h3 { font-size: 1.5625rem; }
+
+  /* People: the photograph sits in the label column. */
+  .person { min-height: 0; grid-template-rows: auto auto; row-gap: 0; }
+  .person > .face { grid-column: 1; grid-row: 1 / span 2; justify-self: end; width: 3.75rem; height: 3.75rem; }
+  .person > .pwho, .person > .ptopic { grid-column: 3; }
+  .person > .pwho { padding-top: 0.2rem; }
+  .pname { margin-right: 0.55em; }
+  .prole { display: inline; font-size: 1em; letter-spacing: 0.06em; }
+  .person + .person { margin-top: calc(var(--line) * 0.9); }
+
+  /* Label and text */
+  .deflist > div > dt, .notes li > time, .filter-label {
+    grid-column: 1; text-align: right; overflow-wrap: normal;
+    font-size: 0.9em; line-height: calc(var(--line) / 0.9); letter-spacing: 0.05em;
+  }
+  .deflist > div > dd, .notes li > p { grid-column: 3; }
+  .deflist > div + div, .notes li + li { margin-top: calc(var(--line) * 0.6); }
+  .filter-label { line-height: 2.75rem; font-size: 0.85em; }
+  .grid > .filter { grid-column: 1 / 4; grid-template-columns: 9.5rem 1.5rem 36rem; }
+  .filter > ul { grid-column: 3; column-gap: 1.25rem; }
+  .grid > .side--papers { grid-row: 3 / span 3; }
+
+  /* How we work */
+  .pull--lead p { font-size: 1.875rem; }
+  .pull p { font-size: 1.5rem; }
+
+  /* References: numbers hang too. */
+  .refs { font-size: 0.9em; }
+  .refs li { padding-left: 0; }
+  .refs li::before { left: auto; right: calc(100% + 1.5rem); }
+  .refs li + li { margin-top: 0.85em; }
+
+  .colophon { padding-bottom: calc(var(--line) * 4); }
+  .colophon h2 { font-size: 1.75rem; }
+}
+
+@media print {
+  .contents, .more, .skip, .filter { display: none; }
+  body { background: #fff; color: #000; }
+  .refs li[hidden] { display: block; }
+}
