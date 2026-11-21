@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-GB">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Working Models: infectious disease models built to be used</title>
+<meta name="description" content="Working Models is a research group at Imperial College London. We build models of infectious disease for decisions that have to be made quickly, with imperfect data.">
+<meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12171d" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Sections">
+  <a class="nav-name" href="#top">Working Models</a>
+  <div class="nav-scroll" id="nav-scroll">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#people">People</a>
+    <a href="#news">News</a>
+    <a href="#join">Working with us</a>
+    <a href="#norms">How we work</a>
+    <a href="#papers">Papers</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">A research group at Imperial College London</p>
+      <h1>Working Models</h1>
+      <p class="tagline">Infectious disease models built to be used.</p>
+    </div>
+    <figure class="hero-fig">
+      <canvas data-figure="ensemble" role="img" aria-label="Many faint epidemic curves being drawn and redrawn around one steady central line."></canvas>
+      <figcaption>A working model is one that works, and one that is still being worked on. We aim for both.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section wrap" id="about" aria-labelledby="h-about">
+    <h2 class="label" id="h-about">About</h2>
+    <div class="about" id="about-body"></div>
+  </section>
+
+  <section class="section wrap" id="research" aria-labelledby="h-research">
+    <h2 id="h-research">Research areas</h2>
+    <p class="section-note">Five areas of work. Each drawing is an illustration of the idea, not data.</p>
+    <div class="themes" id="themes"></div>
+  </section>
+
+  <section class="section" id="people" aria-labelledby="h-people">
+    <div class="wrap people-head">
+      <h2 id="h-people">People</h2>
+      <p class="swipe-hint" aria-hidden="true">Swipe <span>&rarr;</span></p>
+    </div>
+    <ul class="people" id="people-list" tabindex="0" aria-label="Current members, in alphabetical order"></ul>
+    <div class="wrap alumni" id="alumni"></div>
+  </section>
+
+  <section class="section wrap" id="news" aria-labelledby="h-news">
+    <h2 id="h-news">News</h2>
+    <ul class="news" id="news-list"></ul>
+  </section>
+
+  <section class="section wrap" id="join" aria-labelledby="h-join">
+    <h2 id="h-join">Working with us</h2>
+    <div class="join" id="join-body"></div>
+  </section>
+
+  <section class="section wrap" id="norms" aria-labelledby="h-norms">
+    <h2 id="h-norms">How we work</h2>
+    <div class="norms" id="norms-body"></div>
+  </section>
+
+  <section class="section wrap" id="papers" aria-labelledby="h-papers">
+    <h2 id="h-papers">Recent papers</h2>
+    <div class="chips" id="chips" role="group" aria-label="Filter papers by research area"></div>
+    <ol class="papers" id="paper-list" aria-live="polite"></ol>
+    <button class="btn" id="more-papers" type="button" hidden>Show more</button>
+    <p class="fine" id="papers-note"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid" id="footer-body">
+    <div>
+      <p class="footer-name">Working Models</p>
+      <p>A research group at Imperial College London.</p>
+    </div>
+  </div>
+</footer>
+
+<noscript><p class="wrap fine">This page lists its people, news and papers with JavaScript. The headings above show what is here.</p></noscript>
+
+<script src="data/site-data.js"></script>
+<script src="figures.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

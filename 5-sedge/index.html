@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en-GB">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEDGE · Infectious disease modelling at Imperial College London</title>
+<meta name="description" content="SEDGE: Simulation, Evolution and Decisions in Global health Emergencies. Infectious disease modelling for decisions made with imperfect data. A research group at Imperial College London.">
+<meta name="theme-color" content="#F7F2E6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F7F2E6'/%3E%3Cg fill='none' stroke='%231E3A2B' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M32 56C30 38 24 24 10 26'/%3E%3Cpath d='M32 56C34 38 42 26 55 31'/%3E%3Cpath d='M32 56C32 38 34 22 39 10'/%3E%3C/g%3E%3Cellipse cx='41' cy='9' rx='2.6' ry='5' transform='rotate(18 41 9)' fill='%239C4424'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar__in">
+    <a class="brand" href="#top" aria-label="SEDGE, back to top">
+      <svg class="brand__mark" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <path d="M32 58C30 40 24 25 9 27"/>
+          <path d="M32 58C34 40 42 27 56 32"/>
+          <path d="M31.5 58C28 46 22 40 14 41"/>
+          <path d="M32 58C32 40 34 23 39 11"/>
+        </g>
+        <ellipse class="brand__seed" cx="41" cy="9" rx="2.5" ry="5.2" transform="rotate(18 41 9)"/>
+        <ellipse class="brand__seed" cx="45.5" cy="21" rx="2" ry="4.2" transform="rotate(-24 45.5 21)"/>
+      </svg>
+      <span class="brand__name">SEDGE</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <ul>
+        <li><a href="#people">People</a></li>
+        <li><a href="#how">How we work</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#join">Working with us</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#papers">Papers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1. Name, one-liner, short intro -->
+  <section class="hero" id="top" aria-labelledby="site-name">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <h1 class="hero__name" id="site-name">SEDGE</h1>
+        <p class="hero__expand"><b>S</b>imulation, <b>E</b>volution &amp; <b>D</b>ecisions in <b>G</b>lobal health <b>E</b>mergencies</p>
+        <p class="hero__tag">Infectious disease modelling for decisions made with imperfect data.</p>
+        <p class="hero__sub">A research group at Imperial College London.</p>
+        <div class="hero__intro" id="intro"></div>
+        <p class="hero__name-note--inline">A sedge is a tough, unshowy plant that grows at the water's edge. It seemed about right.</p>
+        <p class="hero__go"><a class="btn btn--ghost" href="#people">Meet the group <span aria-hidden="true">↓</span></a></p>
+      </div>
+
+      <figure class="hero__plant">
+        <svg class="sedge" viewBox="0 0 240 300" role="img" aria-label="Line drawing of a sedge: a few slender arching blades and three small seed heads.">
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <!-- water's edge -->
+            <path class="sedge__water" d="M58 286h124M84 293h40M138 293h22"/>
+            <!-- blades -->
+            <path class="sedge__blade sway-a" d="M119 284C112 196 86 104 22 128C80 112 104 196 122 284"/>
+            <path class="sedge__blade" d="M118 284C108 236 84 196 50 200"/>
+            <path class="sedge__blade sway-b" d="M121 284C130 196 160 112 222 142C166 122 142 198 124 284"/>
+            <path class="sedge__blade" d="M122 284C134 232 160 204 192 212"/>
+            <path class="sedge__blade sway-c" d="M119 284C114 210 100 126 78 66"/>
+            <!-- flowering stem -->
+            <g class="sway-c">
+              <path class="sedge__stem" d="M121 284C124 200 132 108 150 40"/>
+              <path class="sedge__stem" d="M146 56C156 54 163 60 165 70"/>
+              <path class="sedge__stem" d="M138 98C128 96 121 102 119 112"/>
+              <g class="sedge__seed">
+                <ellipse cx="153" cy="27" rx="4.2" ry="13" transform="rotate(14 153 27)"/>
+                <ellipse cx="166.500" cy="83" rx="3.8" ry="12" transform="rotate(-10 166.500 83)"/>
+                <ellipse cx="117.500" cy="124" rx="3.6" ry="11" transform="rotate(10 117.500 124)"/>
+              </g>
+              <path class="sedge__tick" d="M150 22l6 2M149.500 28l6.500 2M150 34l5 1.500M163.500 78l6-1M163 84l6.500-1M163.500 90l5.500-1M114.500 120l6 1M114.500 126l6 1"/>
+            </g>
+          </g>
+        </svg>
+        <figcaption class="hero__name-note">A sedge is a tough, unshowy plant that grows at the water's edge. It seemed about right.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2. People -->
+  <section class="sec people" id="people" aria-labelledby="h-people">
+    <div class="wrap">
+      <header class="sec__head">
+        <p class="eyebrow">Who we are</p>
+        <h2 id="h-people">People</h2>
+      </header>
+      <ul class="people__grid" id="people-grid"></ul>
+      <div class="people__after">
+        <p class="people__line" id="alumni-line"></p>
+        <p class="people__line" id="masters-line"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. How we work -->
+  <section class="sec how" id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <header class="sec__head sec__head--split">
+        <div>
+          <p class="eyebrow">Group norms</p>
+          <h2 id="h-how">How we work</h2>
+        </div>
+        <p class="sec__lead" id="norms-intro"></p>
+      </header>
+      <ul class="principles" id="principles"></ul>
+      <div class="quotes" id="quotes"></div>
+      <p class="how__link" id="norms-link"></p>
+    </div>
+  </section>
+
+  <!-- 4. What we work on -->
+  <section class="sec research" id="research" aria-labelledby="h-research">
+    <div class="wrap">
+      <header class="sec__head sec__head--split">
+        <div>
+          <p class="eyebrow">Five areas</p>
+          <h2 id="h-research">What we work on</h2>
+        </div>
+        <p class="sec__lead" id="research-lead"></p>
+      </header>
+      <div class="acc" id="themes"></div>
+    </div>
+  </section>
+
+  <!-- 5. Working with us -->
+  <section class="sec join" id="join" aria-labelledby="h-join">
+    <div class="wrap">
+      <header class="sec__head">
+        <p class="eyebrow">Joining or collaborating</p>
+        <h2 id="h-join">Working with us</h2>
+      </header>
+      <div class="join__top">
+        <p class="join__status" id="join-status"></p>
+        <p class="join__body" id="join-body"></p>
+      </div>
+      <ul class="routes" id="routes"></ul>
+      <div class="join__foot">
+        <p id="join-footnote"></p>
+        <p><a class="btn" id="join-email" href="#contact">Write to us</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 and 7. News, recent papers -->
+  <section class="sec latest" aria-label="News and recent papers">
+    <div class="wrap latest__grid">
+      <section class="news" id="news" aria-labelledby="h-news">
+        <h2 class="h-small" id="h-news">News</h2>
+        <ul class="news__list" id="news-list"></ul>
+      </section>
+      <section class="papers" id="papers" aria-labelledby="h-papers">
+        <h2 class="h-small" id="h-papers">Recent papers</h2>
+        <ol class="papers__list" id="papers-list"></ol>
+        <p class="papers__more"><button class="btn btn--ghost" id="papers-more" type="button" aria-controls="papers-list" aria-expanded="false" hidden>Show more</button></p>
+        <p class="papers__note" id="papers-note"></p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<!-- 8. Footer -->
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__id">
+        <p class="foot__name">
+          <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+              <path d="M32 58C30 40 24 25 9 27"/>
+              <path d="M32 58C34 40 42 27 56 32"/>
+              <path d="M31.5 58C28 46 22 40 14 41"/>
+              <path d="M32 58C32 40 34 23 39 11"/>
+            </g>
+            <ellipse fill="currentColor" cx="41" cy="9" rx="2.5" ry="5.2" transform="rotate(18 41 9)"/>
+            <ellipse fill="currentColor" cx="45.5" cy="21" rx="2" ry="4.2" transform="rotate(-24 45.5 21)"/>
+          </svg>
+          <span>SEDGE</span>
+        </p>
+        <p class="foot__affil" id="foot-affil"></p>
+      </div>
+      <div>
+        <h2 class="foot__h">Contact</h2>
+        <p id="foot-email"></p>
+        <p class="foot__addr" id="foot-address"></p>
+      </div>
+      <div>
+        <h2 class="foot__h">Elsewhere</h2>
+        <ul class="foot__links" id="foot-links"></ul>
+      </div>
+    </div>
+    <div class="foot__thanks">
+      <p><span class="foot__k">Funded by</span> <span id="foot-funders"></span></p>
+      <p><span class="foot__k">We work with</span> <span id="foot-partners"></span></p>
+    </div>
+  </div>
+</footer>
+
+<noscript><p class="noscript">This page fills in its people, research areas, news and papers with JavaScript. Please enable it to see them.</p></noscript>
+<script src="data/site-data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

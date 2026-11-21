@@ -1,0 +1,465 @@
+/* Partially Observed — "quiet paper".
+   One text serif (Source Serif 4, self-hosted, OFL), paper and ink, one accent, hairline rules.
+   Mobile first. From 70rem the page gains a left label column and a right margin for side-notes. */
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("fonts/source-serif-4-text.woff2") format("woff2");
+  font-weight: 400 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("fonts/source-serif-4-text-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Display";
+  src: url("fonts/source-serif-4-display.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Display";
+  src: url("fonts/source-serif-4-display-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+:root {
+  --paper: #f5f2ea;
+  --ink: #1d1b18;
+  --muted: #5f584d;
+  --rule: #cdc6b7;
+  --tile: #e6e0d2;
+  --accent: #7b2323;          /* oxblood */
+  --accent-line: #b98a84;     /* the accent, thinned, for underlines */
+
+  --text: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --display: "Source Serif 4 Display", "Source Serif 4", "Iowan Old Style", Georgia, serif;
+
+  --fs: 1.1875rem;            /* 19px body on a phone */
+  --lh: 1.5;
+  --line: calc(var(--fs) * var(--lh));
+  --pad: 1.375rem;
+  --measure: 36rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #181715;
+    --ink: #e9e4d9;
+    --muted: #a8a092;
+    --rule: #3d3a34;
+    --tile: #2a2824;
+    --accent: #dba294;
+    --accent-line: #8f6a61;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 1rem;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+h1, h2, h3, p, ul, ol, dl, dd, blockquote, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+h1, h2, h3 { font-weight: 400; text-wrap: balance; }
+p, li, dd { text-wrap: wrap; }
+.prose p, .ptopic, .afterword, .why { text-wrap: pretty; }
+cite { font-style: italic; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--accent-line);
+}
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.email { overflow-wrap: anywhere; }
+
+.skip {
+  position: absolute; left: var(--pad); top: -4rem;
+  padding: 0.6rem 0.9rem; background: var(--ink); color: var(--paper);
+  text-decoration: none; z-index: 2;
+}
+.skip:focus { top: 0.5rem; }
+.skip:hover { color: var(--paper); }
+
+/* Small caps: true ones, from the font. */
+.label {
+  font-variant-caps: all-small-caps;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-style: normal;
+}
+.runin { margin-right: 0.15em; color: var(--accent); }
+/* Titles in lists are links, but a column of full-strength underlines is noisy: thin them. */
+.side-papers a, .refs a { text-decoration-color: var(--rule); }
+.side-papers a:hover, .refs a:hover { text-decoration-color: currentColor; }
+
+/* ---------- The dots: filled is observed, hollow is not ---------- */
+.dots { display: flex; line-height: 0; color: var(--ink); }
+.dots i {
+  flex: none;
+  width: 0.3125rem; height: 0.3125rem;
+  margin-right: 0.4375rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.dots i.f { background: currentColor; }
+.dots--rule { color: var(--muted); margin-bottom: calc(var(--line) * 1.1); }
+.dots--end { color: var(--muted); margin-top: calc(var(--line) * 1.5); }
+
+.dots--title i {
+  width: min(0.5rem, 2.05vw); height: min(0.5rem, 2.05vw);
+  margin-right: min(0.5rem, 2.05vw);
+  border-width: 1.25px;
+}
+/* Three reports arrive late. Their resting state is filled; the animation only delays it. */
+.dots--title i.late {
+  background: var(--accent); border-color: var(--accent);
+  animation: observe 2.2s ease-in-out backwards;
+}
+.dots--title i.l1 { animation-delay: 1.4s; }
+.dots--title i.l2 { animation-delay: 3s; }
+.dots--title i.l3 { animation-delay: 4.6s; }
+@keyframes observe {
+  from { background: transparent; border-color: var(--ink); }
+  to   { background: var(--accent); border-color: var(--accent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dots--title i.late { animation: none; }
+}
+
+/* ---------- Page frame (one column) ---------- */
+.grid, .contents ul {
+  max-width: calc(var(--measure) + 2 * var(--pad));
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+.grid .grid { max-width: none; padding-inline: 0; }
+
+/* ---------- Top nav: a plain row of section names ---------- */
+.contents { border-bottom: 1px solid var(--rule); }
+.contents ul {
+  display: flex; flex-wrap: wrap;
+  column-gap: 0.9rem;
+  padding-block: 0.25rem;
+}
+.contents a {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 2.75rem;             /* 44px tap target */
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.contents .opt { display: none; }   /* About is next; Contact is the last thing on the page */
+.contents a:hover { text-decoration: underline; text-decoration-thickness: 0.055em; }
+
+/* ---------- Title ---------- */
+.title { padding-top: calc(var(--line) * 2); }
+.title h1 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 13.4vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+  margin-top: calc(var(--line) * 1);
+  margin-left: -0.04em;
+  font-variant-numeric: lining-nums;
+}
+.tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.375rem, 5.6vw, 1.75rem);
+  line-height: 1.28;
+  margin-top: calc(var(--line) * 0.8);
+  max-width: 21em;
+  text-wrap: balance;
+}
+.subline {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin-top: calc(var(--line) * 0.7);
+  font-size: 0.9375rem;
+  text-wrap: balance;
+}
+
+/* ---------- Sections ---------- */
+section, .colophon { padding-top: calc(var(--line) * 2.75); }
+#about { padding-top: calc(var(--line) * 2.25); }
+
+h2 {
+  font-family: var(--display);
+  font-size: 1.875rem;
+  line-height: 1.15;
+  letter-spacing: -0.008em;
+  margin-bottom: calc(var(--line) * 0.75);
+  position: relative;
+}
+h2 .num { color: var(--accent); margin-right: 0.3em; font-variant-numeric: lining-nums; }
+
+.prose p + p { text-indent: 1.4em; }
+
+/* Side-notes. On a phone they fold in under the text; on a wide screen they move to the margin. */
+.side {
+  font-size: 0.86em;
+  line-height: 1.45;
+  margin-top: calc(var(--line) * 0.8);
+}
+.sidenote + .sidenote { margin-top: 0.7em; }
+
+/* The notice */
+.notice {
+  border: 3px double var(--ink);
+  padding: 0.85em 1em 0.95em;
+  margin-top: calc(var(--line) * 0.9);
+}
+.notice h3 { font-size: 1.06em; color: var(--accent); line-height: 1.3; margin-bottom: 0.3em; }
+.notice p + p { margin-top: 0.55em; }
+
+/* ---------- 2 Research ---------- */
+.theme + .theme { margin-top: calc(var(--line) * 2.25); }
+.theme h3 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  position: relative;
+}
+.theme h3 .num { color: var(--muted); margin-right: 0.25em; font-variant-numeric: lining-nums; }
+.theme-short { font-style: italic; margin-top: 0.2em; }
+.theme-body { margin-top: calc(var(--line) * 0.6); }
+
+.theme-side::before {
+  content: ""; display: block;
+  width: 3.5rem; border-top: 1px solid var(--ink);
+  margin-bottom: 0.9em;
+}
+.side-label { margin-top: 0.9em; color: var(--accent); }
+.side-papers li { margin-top: 0.5em; }
+.side-papers .src { display: block; color: var(--muted); }
+
+/* ---------- 3 People ---------- */
+.person {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  column-gap: 1rem;
+  align-content: center;
+  min-height: 3.5rem;
+}
+.person + .person { margin-top: calc(var(--line) * 0.85); }
+.face {
+  grid-row: 1 / span 2;
+  width: 3.5rem; height: 3.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--tile);
+}
+.face img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+}
+.face--initials {
+  display: grid; place-items: center;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: lining-nums;
+  color: var(--muted);
+}
+.pwho { line-height: 1.3; align-self: end; }
+.pname { font-weight: 600; }
+.prole { display: block; color: var(--muted); font-size: 0.9em; letter-spacing: 0.05em; }
+.ptopic { font-size: 0.92em; line-height: 1.4; margin-top: 0.15em; align-self: start; }
+
+/* ---------- 4 Working with us, and the footer: label and text ---------- */
+.status { font-size: 1.12em; line-height: 1.42; }
+.prose .status + p { text-indent: 0; margin-top: calc(var(--line) * 0.6); }
+.deflist { margin-top: calc(var(--line) * 0.9); }
+.deflist > div + div { margin-top: calc(var(--line) * 0.65); }
+.deflist dt { color: var(--muted); }
+.afterword { font-style: italic; margin-top: calc(var(--line) * 0.9); }
+
+/* ---------- 5 Notes ---------- */
+.notes li + li { margin-top: calc(var(--line) * 0.75); }
+.notes time { display: block; color: var(--muted); white-space: nowrap; }
+.go { white-space: nowrap; margin-left: 0.15em; }
+.go::after { content: "\00a0\2192"; }
+
+/* ---------- 6 How we work ---------- */
+.pull p {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  text-indent: -0.42em;            /* hang the opening quotation mark */
+  text-wrap: balance;
+}
+.pull { margin-block: calc(var(--line) * 1.1); }
+.norms-side { font-size: 1em; margin-top: calc(var(--line) * 1.1); }
+.pull--margin p { font-size: 1.3rem; }
+
+.principles { border-top: 1px solid var(--rule); }
+.principles li { padding-block: calc(var(--line) * 0.42); border-bottom: 1px solid var(--rule); }
+.principles .pt { display: block; }
+.principles .pd { display: block; color: var(--ink); }
+.norms-link { margin-top: calc(var(--line) * 1); }
+
+/* ---------- 7 Recent papers ---------- */
+.refs { counter-reset: ref; font-size: 0.92em; line-height: 1.45; }
+.refs li { counter-increment: ref; position: relative; padding-left: 2.1em; }
+.refs li + li { margin-top: 0.7em; }
+.refs li::before {
+  content: counter(ref) ".";
+  position: absolute; left: 0; top: 0;
+  color: var(--muted);
+  font-variant-numeric: oldstyle-nums tabular-nums;
+}
+.refs li[hidden] { display: none; }
+.more { margin-top: calc(var(--line) * 0.5); }
+.more button {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  min-height: 2.75rem;
+  font-variant-caps: all-small-caps; letter-spacing: 0.06em;
+  text-decoration: underline; text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.2em; text-decoration-color: var(--accent-line);
+}
+.more button:hover { color: var(--accent); text-decoration-color: currentColor; }
+.side--papers { color: var(--muted); margin-top: 0.2rem; }
+
+/* ---------- Footer ---------- */
+.colophon { padding-bottom: calc(var(--line) * 3); }
+.colophon .deflist { margin-top: 0; }
+.why { font-style: italic; margin-top: calc(var(--line) * 1.5); }
+.noscript { max-width: var(--measure); margin: 0 auto; padding: 0 var(--pad) 2rem; font-style: italic; }
+
+/* ---------- A little more room on larger phones and tablets ---------- */
+@media (min-width: 40rem) {
+  .contents ul { column-gap: 1.4rem; }
+  .contents a { font-size: 1rem; }
+}
+
+/* ---------- Wide screens: label column | text | margin ---------- */
+@media (min-width: 73rem) {
+  :root { --fs: 1.25rem; --lh: 1.5; }
+
+  .grid, .contents ul { max-width: none; width: 68rem; padding-inline: 0; }
+  .grid .grid, .themes, .theme, .people, .person, .deflist, .deflist > div, .notes, .notes li, .norms { width: auto; }
+
+  .grid, .theme, .person, .deflist > div, .notes li, .norms {
+    display: grid;
+    grid-template-columns: 9.5rem 1.5rem 36rem 3rem 18rem;
+    column-gap: 0;
+    align-items: start;
+  }
+  .grid > *, .theme > *, .norms > * { grid-column: 3; }
+  .grid > .themes, .grid > .people, .grid > .deflist, .grid > .notes, .grid > .norms { grid-column: 1 / -1; }
+
+  .contents { border-bottom: 0; }
+  .contents .opt { display: block; }
+  .contents ul { padding-left: 11rem; padding-block: 0.6rem; border-bottom: 1px solid var(--rule); column-gap: 1.75rem; }
+
+  .title { padding-top: calc(var(--line) * 2.5); }
+  .title > * { grid-column: 3 / -1; }
+  .title h1 { margin-top: calc(var(--line) * 1.1); }
+  .tagline { font-size: 1.875rem; max-width: none; }
+  .subline { font-size: 1.0625rem; }
+
+  section, .colophon { padding-top: calc(var(--line) * 3.25); }
+  #about { padding-top: calc(var(--line) * 2.75); }
+
+  h2 { font-size: 2.125rem; margin-bottom: calc(var(--line) * 0.8); }
+  /* Section and subsection numbers hang in the label column. */
+  h2 .num, .theme h3 .num {
+    position: absolute; right: calc(100% + 1.5rem); top: 0;
+    margin: 0; white-space: nowrap;
+  }
+
+  /* Margin notes */
+  .grid > .side, .theme > .side, .norms > .side {
+    grid-column: 5;
+    margin-top: 0;
+    font-size: 0.8em;
+    line-height: 1.45;
+  }
+  .side--about { grid-row: 2; padding-top: 0.3em; }
+  .grid > .people { grid-row: 3; }
+  .side--people { grid-row: 3; padding-top: 0.55em; }
+  .side--join { grid-row: 3; padding-top: 0.45em; }
+  .side--papers { grid-row: 3; padding-top: 0.15em; }
+  .notice { margin-top: 1.4em; }
+
+  .theme + .theme { margin-top: calc(var(--line) * 2.5); }
+  .theme h3 { font-size: 1.625rem; }
+  .theme { grid-template-rows: auto 1fr; }
+  .theme-head { grid-row: 1; }
+  .theme-body { grid-row: 2; }
+  .theme > .theme-side { grid-row: 1 / span 2; padding-top: 0.5em; }
+  .theme-side::before { content: none; }
+
+  /* People: the photograph sits in the label column. */
+  .person { min-height: 0; grid-template-rows: auto auto; row-gap: 0; }
+  .person > .face { grid-column: 1; grid-row: 1 / span 2; justify-self: end; width: 3.75rem; height: 3.75rem; }
+  .person > .pwho, .person > .ptopic { grid-column: 3; }
+  .person > .pwho { padding-top: 0.2rem; }
+  .pname { margin-right: 0.55em; }
+  .prole { display: inline; font-size: 1em; letter-spacing: 0.06em; }
+  .person + .person { margin-top: calc(var(--line) * 0.9); }
+
+  /* Label and text */
+  .deflist > div > dt, .notes li > time { grid-column: 1; text-align: right; overflow-wrap: normal; font-size: 0.9em; line-height: calc(var(--line) / 0.9); letter-spacing: 0.05em; }
+  .deflist > div > dd, .notes li > p { grid-column: 3; }
+  .deflist > div + div, .notes li + li { margin-top: calc(var(--line) * 0.6); }
+  .grid > .afterword { margin-top: calc(var(--line) * 0.9); }
+
+  /* How we work */
+  .pull--lead p { font-size: 1.875rem; line-height: 1.26; }
+  .pull--lead { margin-block: calc(var(--line) * 1.2); }
+  .norms > .norms-side { grid-row: 3; font-size: 1em; }
+  .pull--margin { margin-block: 0; }
+  .pull--margin + .pull--margin { margin-top: calc(var(--line) * 0.9); }
+  .pull--margin p { font-family: var(--text); font-size: 1.0625rem; line-height: 1.42; text-wrap: pretty; }
+
+  /* References: numbers hang too. */
+  .refs { font-size: 0.9em; }
+  .refs li { padding-left: 0; }
+  .refs li::before { left: auto; right: calc(100% + 1.5rem); }
+  .refs li + li { margin-top: 0.75em; }
+
+  .colophon { padding-bottom: calc(var(--line) * 4); }
+}
+
+@media print {
+  .contents, .more, .skip { display: none; }
+  body { background: #fff; color: #000; }
+  .refs li[hidden] { display: block; }
+}
