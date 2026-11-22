@@ -29,8 +29,33 @@
     return m ? m[0] : (t || '');
   };
   var set = function (id, text) { var el = $(id); if (el) el.textContent = text || ''; return el; };
-  var email = (S.links || {}).email;
-  var intro = S.intro || [];
+  var M = S.me || {};
+  var L = S.links || {};
+  var email = L.email;
+  var paras = function (arr) { return (arr || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join(''); };
+  var link = function (label, url) {
+    return '<a href="' + esc(url) + '"' + ext(url) + '>' + esc(label) + '</a>';
+  };
+
+  /* ---- Header: compact menu on narrow screens (the links are plain HTML, so they work without this) ---- */
+  var bar = $('bar'), btn = $('menu-btn');
+  if (bar && btn) {
+    var setOpen = function (open) {
+      bar.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    btn.addEventListener('click', function () { setOpen(!bar.classList.contains('is-open')); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && bar.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (bar.classList.contains('is-open') && !bar.contains(e.target)) setOpen(false);
+    });
+  }
+
+  /* ---- Shared: name and sub-line (also static in the HTML) ---- */
+  if (M.name) all('[data-me-name]').forEach(function (el) { el.textContent = M.name; });
+  if (M.subtitle) all('[data-me-subtitle]').forEach(function (el) { el.textContent = M.subtitle; });
 
   /* Short labels for paper tags and filters; an unknown theme id falls back to its title. */
   var SHORT_LABEL = { crises: 'Crises', malaria: 'Malaria', vaccines: 'Vaccines', decisions: 'Decisions', methods: 'Methods' };
@@ -55,7 +80,7 @@
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   };
-  /* Tints are assigned in data order, so the strip on the home page and the People page match. */
+  /* Tints are assigned in data order, so the strip on the home page and the Team page match. */
   var portraits = (function () {
     var n = 0;
     return (S.people || []).map(function (p, i) {
@@ -76,8 +101,8 @@
     return '<div class="person__pic' + (pt.img ? '' : ' person__pic--tile') + (extra || '') + '">' + pt.html + '</div>';
   };
 
-  /* ---- Shared: where we sit, and the groups we belong to (home and footer) ---- */
-  all('[data-where]').forEach(function (el) { el.textContent = S.where || ''; });
+  /* ---- Team page: where the work sits, and the shared groups ---- */
+  all('[data-where]').forEach(function (el) { el.textContent = M.where || ''; });
   all('[data-belongs]').forEach(function (el) {
     el.innerHTML = (S.belongs_to || []).map(function (g) {
       return '<li><a href="' + esc(g.url) + '"' + ext(g.url) + '>' + esc(g.name) + '</a></li>';
@@ -85,18 +110,22 @@
   });
 
   /* ---- Home ---- */
-  set('one-liner', S.one_liner);
   if ($('intro')) {
-    /* Paragraphs 1 and 3 here; paragraph 2 opens "What we work on". */
-    var short = intro.length > 2 ? [intro[0], intro[intro.length - 1]] : intro;
-    $('intro').innerHTML = short.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+    $('intro').innerHTML = (M.home_intro || []).map(function (p, i) {
+      return '<p' + (i === 0 ? ' class="hero__lead"' : '') + '>' + esc(p) + '</p>';
+    }).join('');
   }
-  if ($('research-lead') && intro.length > 2) $('research-lead').textContent = intro[1];
+  if ($('me-photo') && M.photo) {
+    $('me-photo').innerHTML = '<img src="img/people/' + esc(M.photo) + '" alt="' + esc(M.name) + '" width="480" height="480" decoding="async">';
+  }
 
   if ($('people-strip')) {
-    $('people-strip').innerHTML = (S.people || []).map(function (p, i) {
-      var first = String(p.name).split(/\s+/)[0];
-      return '<li><a class="strip__item" href="people.html#' + esc(slug(p.name)) + '">' + pic(i, ' strip__pic') +
+    /* My own photo is already at the top of the page, so the strip shows everyone else. */
+    var others = (S.people || []).map(function (p, i) { return { p: p, i: i }; }).filter(function (x) { return !x.p.lead; });
+    $('people-strip').style.setProperty('--n', others.length);
+    $('people-strip').innerHTML = others.map(function (x) {
+      var p = x.p, first = String(p.name).split(/\s+/)[0];
+      return '<li><a class="strip__item" href="team.html#' + esc(slug(p.name)) + '">' + pic(x.i, ' strip__pic') +
         '<span class="strip__name"><span class="strip__first">' + esc(first) + '</span>' +
         '<span class="strip__rest"> ' + esc(String(p.name).split(/\s+/).slice(1).join(' ')) + '</span></span></a></li>';
     }).join('');
@@ -120,7 +149,38 @@
         (n.url ? ' <a href="' + esc(n.url) + '"' + ext(n.url) + ' aria-label="Read more: ' + esc(n.text) + '">Read more <span aria-hidden="true">→</span></a>' : '') + '</li>';
     }).join('');
   }
-  set('nudge-text', (S.join || {}).status);
+  set('nudge-text', (M.join || {}).status);
+
+  /* ---- About ---- */
+  if ($('about-text')) $('about-text').innerHTML = paras(M.about);
+  if ($('timeline')) {
+    $('timeline').innerHTML = (M.timeline || []).map(function (t) {
+      return '<li class="tl"><p class="tl__when">' + esc(t.when) + '</p>' +
+        '<div class="tl__body"><h3>' + esc(t.what) + '</h3>' +
+        '<p class="tl__where">' + esc(t.where) + '</p>' +
+        (t.note ? '<p class="tl__note">' + esc(t.note) + '</p>' : '') + '</div></li>';
+    }).join('');
+  }
+  ['service', 'teaching'].forEach(function (k) {
+    if ($(k)) $(k).innerHTML = (M[k] || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+  });
+  if ($('software')) {
+    $('software').innerHTML = (M.software || []).map(function (x) {
+      return '<li>' + link(x.name, x.url) + '<span>' + esc(x.what) + '</span></li>';
+    }).join('');
+  }
+  set('cv-note', M.cv_note);
+  if ($('cv-link')) {
+    if (M.cv_url) $('cv-link').href = M.cv_url; else $('cv-link').parentNode.remove();
+  }
+  if ($('profiles')) {
+    var meCard = (S.people || []).filter(function (p) { return p.lead; })[0] || {};
+    $('profiles').innerHTML = [
+      ['Imperial profile', meCard.link], ['Google Scholar', L.scholar], ['ORCID', L.orcid],
+      ['GitHub', L.github], ['Bluesky', L.bluesky]
+    ].filter(function (x) { return x[1]; }).map(function (x) { return '<li>' + link(x[0], x[1]) + '</li>'; }).join('');
+  }
+  set('research-lead', M.research_intro);
 
   /* ---- Research ---- */
   if ($('themes')) {
@@ -165,7 +225,8 @@
     window.addEventListener('hashchange', function () { openHash(true); });
   }
 
-  /* ---- People ---- */
+  /* ---- Team ---- */
+  set('team-lead', M.team_intro);
   if ($('people-grid')) {
     $('people-grid').innerHTML = (S.people || []).map(function (p, i) {
       var name = p.link
@@ -193,14 +254,14 @@
   }
   if ($('masters-line')) {
     if ((S.masters_alumni || []).length) {
-      $('masters-line').innerHTML = '<span class="k">With thanks to our Masters students</span>' +
+      $('masters-line').innerHTML = '<span class="k">With thanks to Masters students</span>' +
         esc(joinNames(S.masters_alumni)) + '.';
     } else { $('masters-line').remove(); }
   }
 
-  /* ---- How we work ---- */
+  /* ---- How I work: headline and intro from me.norms, quotes and principles from norms ---- */
   var N = S.norms || {};
-  set('norms-intro', N.intro);
+  set('norms-intro', (M.norms || {}).intro);
   if ($('principles')) {
     $('principles').innerHTML = (N.principles || []).map(function (p, i) {
       return '<li class="principle"><span class="principle__n" aria-hidden="true">' + (i + 1) + '</span>' +
@@ -219,8 +280,10 @@
     } else { $('norms-link').remove(); }
   }
 
-  /* ---- Working with us ---- */
-  var J = S.join || {};
+  /* ---- Working with me ---- */
+  var J = M.join || {};
+  if (document.body.getAttribute('data-page') === 'join' && J.headline) set('page-title', J.headline);
+  if (document.body.getAttribute('data-page') === 'how-i-work' && (M.norms || {}).headline) set('page-title', M.norms.headline);
   set('join-status', J.status);
   set('join-body', J.body);
   if ($('routes')) {
@@ -285,19 +348,19 @@
     });
     draw();
     set('papers-note', S.publications_note);
-    if ((S.links || {}).scholar) {
-      $('papers-scholar').innerHTML = '<a class="more-link" href="' + esc(S.links.scholar) + '"' + ext(S.links.scholar) +
-        '>The complete list on Google Scholar <span aria-hidden="true">→</span></a>';
-    }
+    $('papers-scholar').innerHTML = [
+      [L.scholar, 'The complete list on Google Scholar'], [M.cv_url, 'The full list is also in my CV (PDF)']
+    ].filter(function (x) { return x[0]; }).map(function (x) {
+      return '<a class="more-link" href="' + esc(x[0]) + '"' + ext(x[0]) + '>' + esc(x[1]) + ' <span aria-hidden="true">→</span></a>';
+    }).join('');
   }
 
   /* ---- Footer ---- */
-  var L = S.links || {};
   if (email && $('foot-email')) $('foot-email').innerHTML = '<a href="mailto:' + esc(email) + '">' + esc(email) + '</a>';
   set('foot-address', S.address);
   if ($('foot-links')) {
     $('foot-links').innerHTML = [
-      ['GitHub', L.github], ['Google Scholar', L.scholar],
+      ['GitHub', L.github], ['Google Scholar', L.scholar], ['ORCID', L.orcid], ['Bluesky', L.bluesky],
       ['Jameel Institute RISE', L.rise], ['Crisis Vaccination Planner', L.planner]
     ].filter(function (x) { return x[1]; }).map(function (x) {
       return '<li><a href="' + esc(x[1]) + '"' + ext(x[1]) + '>' + esc(x[0]) + '</a></li>';

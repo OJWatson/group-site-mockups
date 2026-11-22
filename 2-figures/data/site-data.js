@@ -244,7 +244,7 @@ window.SITE = {
   {
    "name": "OJ Watson",
    "role": "Associate Professor",
-   "topic": "Works across the group's themes. Previously a Schmidt Science Fellow at LSHTM; PhD on malaria genetics and transmission modelling.",
+   "topic": "Works across all five research areas. Previously a Schmidt Science Fellow at LSHTM; PhD on malaria genetics and transmission modelling.",
    "photo": "oj-watson.jpg",
    "lead": true,
    "link": "https://profiles.imperial.ac.uk/o.watson15"
@@ -301,7 +301,7 @@ window.SITE = {
   },
   {
    "date": "2026-01-15",
-   "text": "Nisreen Shehada joins the group as a PhD student, working on vaccine-preventable disease in humanitarian settings.",
+   "text": "Nisreen Shehada starts her PhD with me, working on vaccine-preventable disease in humanitarian settings.",
    "url": null
   },
   {
@@ -398,6 +398,132 @@ window.SITE = {
   "bluesky": "https://bsky.app/profile/ojwatson.bsky.social"
  },
  "address": "School of Public Health, Imperial College London, White City Campus, London W12",
+ "me": {
+  "name": "OJ Watson",
+  "full_name": "Oliver (OJ) Watson",
+  "title": "Associate Professor in Infectious Disease Modelling and Health Emergencies",
+  "institution": "Imperial College London",
+  "subtitle": "Infectious disease modelling · Imperial College London",
+  "photo": "oj-watson.jpg",
+  "home_intro": [
+   "I'm an Associate Professor in Infectious Disease Modelling and Health Emergencies at Imperial College London. I use mathematical and statistical models to understand how infectious diseases spread and evolve, mostly where good data are hardest to come by: humanitarian crises where deaths go uncounted, malaria parasites evolving resistance to drugs and diagnostics, and outbreaks where decisions can't wait for complete evidence.",
+   "I work with a small team of PhD students and researchers, and within the Malaria Modelling group, the MRC Centre for Global Infectious Disease Analysis and the Jameel Institute. Almost none of this is done alone."
+  ],
+  "where": "I'm based in the School of Public Health at Imperial College London. My work sits within several larger, shared groups in the department, and I owe a lot to the colleagues in each of them.",
+  "about": [
+   "I studied Natural Sciences at Cambridge, then a master's in Systems Biology. I came to Imperial for an MRes and a PhD with Azra Ghani, Lucy Okell and Robert Verity, on how parasite genetic data can be built into malaria transmission models, including the spread of parasites that escape rapid diagnostic tests.",
+   "After a short postdoc in computational genetics at Brown University, I returned to Imperial in April 2020 and spent the next eighteen months on COVID-19 modelling, including estimating the impact of the first year of vaccination. As a Schmidt Science Fellow at LSHTM, working with Francesco Checchi, I moved towards estimating mortality in places where deaths are not routinely registered.",
+   "I came back to Imperial in October 2023, supported by an Eric and Wendy Schmidt AI in Science Fellowship, and I'm now an Associate Professor. I'm part of the MRC Centre for Global Infectious Disease Analysis and the Jameel Institute, and I sit on WHO technical panels on malaria diagnostics and treatment."
+  ],
+  "timeline": [
+   {
+    "when": "2023 – now",
+    "what": "Associate Professor in Infectious Disease Modelling and Health Emergencies",
+    "where": "Imperial College London",
+    "note": "Eric and Wendy Schmidt AI in Science Fellow"
+   },
+   {
+    "when": "2021 – 2023",
+    "what": "Schmidt Science Fellow",
+    "where": "London School of Hygiene & Tropical Medicine",
+    "note": "Mortality estimation with Francesco Checchi"
+   },
+   {
+    "when": "2020 – 2021",
+    "what": "Postdoctoral researcher, infectious disease modelling",
+    "where": "Imperial College London",
+    "note": "COVID-19 transmission and vaccine impact"
+   },
+   {
+    "when": "2019 – 2020",
+    "what": "Postdoctoral researcher, computational genetics",
+    "where": "Brown University",
+    "note": "Malaria genomics"
+   },
+   {
+    "when": "2015 – 2019",
+    "what": "MRes and PhD (Wellcome Trust)",
+    "where": "Imperial College London",
+    "note": "Integrating genetic information into malaria transmission modelling"
+   },
+   {
+    "when": "2011 – 2015",
+    "what": "BA Natural Sciences and MSci Systems Biology",
+    "where": "University of Cambridge",
+    "note": null
+   }
+  ],
+  "service": [
+   "WHO technical panels on pfhrp2/3 deletions and multiple first-line therapies (2023 – now)",
+   "rOpenSci member: R packages and code review (2018 – now)",
+   "Reviewer for journals including Nature, PNAS, The Lancet and PLOS Medicine, and for Wellcome, NIH and Horizon Europe"
+  ],
+  "teaching": [
+   "Co-lead of the Outbreaks module, MSc Epidemiology, Imperial",
+   "Stochasticity in infectious disease models, Imperial short course in modelling",
+   "Master's in AI in Science, African Institute for Mathematical Sciences, Cape Town",
+   "Nairobi modelling hackathon with CEMA and Kenya's Ministry of Health (2025)"
+  ],
+  "software": [
+   {
+    "name": "rdhs",
+    "what": "R client for Demographic and Health Surveys data (rOpenSci)",
+    "url": "https://github.com/ropensci/rdhs"
+   },
+   {
+    "name": "squire / nimue",
+    "what": "COVID-19 transmission and vaccination models",
+    "url": "https://github.com/mrc-ide/nimue"
+   },
+   {
+    "name": "malariaAtlas",
+    "what": "R interface to Malaria Atlas Project data",
+    "url": "https://github.com/malaria-atlas-project/malariaAtlas"
+   },
+   {
+    "name": "hrpup",
+    "what": "Risk maps for pfhrp2/3 deletions",
+    "url": "https://github.com/OJWatson/hrpup"
+   },
+   {
+    "name": "magenta",
+    "what": "Individual-based malaria model with parasite genetics",
+    "url": "https://github.com/OJWatson/magenta"
+   }
+  ],
+  "cv_url": "https://ojwatson.co.uk/files/cv.pdf",
+  "cv_note": "My full CV (PDF), with publications, grants and teaching.",
+  "research_intro": "These are the questions I spend most of my time on. Each is shared work: the people and partners involved are named in each area.",
+  "team_intro": "The people I work with day to day, listed alphabetically by first name. Everyone engaged in the research is a collaborator, and is listed as one.",
+  "join": {
+   "headline": "Working with me",
+   "status": "I don't currently have funded PhD or postdoctoral positions to advertise. When I do, they will be listed here first.",
+   "body": "That doesn't mean the door is closed. Most people who come to work with me do so through one of these routes, and I'm glad to talk any of them through:",
+   "routes": [
+    {
+     "who": "PhD",
+     "text": "Funded studentships are awarded through Imperial's doctoral training programmes and scholarship schemes, not by individual supervisors. Get in touch before you apply so we can shape a project together."
+    },
+    {
+     "who": "Postdoctoral fellowships",
+     "text": "I'm happy to support fellowship applications, for example to the Schmidt AI in Science programme, Imperial College Research Fellowships or Wellcome Early-Career Awards."
+    },
+    {
+     "who": "Masters projects",
+     "text": "I supervise research projects on Imperial's MSc Epidemiology and Master of Public Health each year."
+    },
+    {
+     "who": "Partners",
+     "text": "If you work in a ministry of health, a humanitarian organisation or a public health agency and have a question a model might help with, I'd like to hear from you."
+    }
+   ],
+   "footnote": "A short note about what you'd like to work on, and why, is more useful to me than a CV. I read everything, though I can't always reply quickly."
+  },
+  "norms": {
+   "headline": "How I work",
+   "intro": "I keep a written set of norms for the people I work with: what anyone joining can expect from me, and what I ask of myself and of them. It is always labelled a draft, because it changes whenever someone has a better idea. A few lines from it:"
+  }
+ },
  "recent_papers": [
   {
    "title": "Global return-on-investment of COVID-19 vaccines in the first year of the vaccination programme: A model-based economic evaluation",

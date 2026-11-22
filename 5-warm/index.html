@@ -1,42 +1,50 @@
 <!doctype html>
 <html lang="en-GB">
-<head><meta name="robots" content="noindex,nofollow">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Infectious Disease Modelling &amp; Health Emergencies</title>
-<meta name="description" content="We build models of infectious disease for decisions that have to be made quickly, with imperfect data. A team in the School of Public Health at Imperial College London.">
+<title>OJ Watson · Infectious disease modelling · Imperial College London</title>
+<meta name="description" content="I use mathematical and statistical models to understand how infectious diseases spread and evolve, mostly where good data are hardest to come by.">
 <meta name="theme-color" content="#F7F2E6">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F7F2E6'/%3E%3Cg fill='none' stroke='%231E3A2B' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M32 56C30 38 24 24 10 26'/%3E%3Cpath d='M32 56C34 38 42 26 55 31'/%3E%3Cpath d='M32 56C32 38 34 22 39 10'/%3E%3C/g%3E%3Cellipse cx='41' cy='9' rx='2.6' ry='5' transform='rotate(18 41 9)' fill='%239C4424'/%3E%3C/svg%3E">
+<script>document.documentElement.className = 'js';</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="index">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="bar">
+<header class="bar" id="bar">
   <div class="bar__in">
-    <a class="brand" href="index.html" aria-current="page">
-      <svg class="brand__mark" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" focusable="false">
-        <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
-          <path d="M32 58C30 40 24 25 9 27"/>
-          <path d="M32 58C34 40 42 27 56 32"/>
-          <path d="M31.5 58C28 46 22 40 14 41"/>
-          <path d="M32 58C32 40 34 23 39 11"/>
-        </g>
-        <ellipse class="brand__seed" cx="41" cy="9" rx="2.5" ry="5.2" transform="rotate(18 41 9)"/>
-        <ellipse class="brand__seed" cx="45.5" cy="21" rx="2" ry="4.2" transform="rotate(-24 45.5 21)"/>
-      </svg>
-      <span class="brand__text">
-        <span class="brand__name">Infectious Disease Modelling &amp; Health Emergencies</span>
-        <span class="brand__sub">Imperial College London</span>
-      </span>
-    </a>
-    <nav class="nav" aria-label="Main">
+    <h1 class="bar__brand">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+            <path d="M32 58C30 40 24 25 9 27"/>
+            <path d="M32 58C34 40 42 27 56 32"/>
+            <path d="M31.5 58C28 46 22 40 14 41"/>
+            <path d="M32 58C32 40 34 23 39 11"/>
+          </g>
+          <ellipse class="brand__seed" cx="41" cy="9" rx="2.5" ry="5.2" transform="rotate(18 41 9)"/>
+          <ellipse class="brand__seed" cx="45.5" cy="21" rx="2" ry="4.2" transform="rotate(-24 45.5 21)"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name" data-me-name>OJ Watson</span>
+          <span class="brand__sub" data-me-subtitle>Infectious disease modelling · Imperial College London</span>
+        </span>
+      </a>
+    </h1>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">
+      <span class="menu-btn__icon" aria-hidden="true"></span><span class="menu-btn__label">Menu</span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main">
       <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="research.html">Research</a></li>
-        <li><a href="people.html">People</a></li>
+        <li><a href="team.html">Team</a></li>
         <li><a href="publications.html">Publications</a></li>
-        <li><a href="join.html">Working with us</a></li>
-        <li><a href="how-we-work.html">How we work</a></li>
+        <li><a href="join.html">Working with me</a></li>
+        <li><a href="how-i-work.html">How I work</a></li>
       </ul>
     </nav>
   </div>
@@ -44,16 +52,17 @@
 
 <main id="main">
 
-  <section class="hero" aria-labelledby="site-name">
+  <section class="hero" aria-label="Introduction">
     <div class="wrap hero__grid">
+      <div class="hero__me">
+        <div class="hero__photo" id="me-photo"></div>
+        <p class="hero__sub" data-me-subtitle>Infectious disease modelling · Imperial College London</p>
+      </div>
       <div class="hero__text">
-        <h1 class="hero__name" id="site-name">Infectious Disease Modelling &amp; Health Emergencies</h1>
-        <p class="hero__sub">Imperial College London</p>
-        <p class="hero__tag" id="one-liner">We build models of infectious disease for decisions that have to be made quickly, with imperfect data.</p>
         <div class="hero__intro" id="intro"></div>
         <p class="hero__go">
-          <a class="btn" href="research.html">Our research</a>
-          <a class="btn btn--ghost" href="people.html">Meet the people</a>
+          <a class="btn" href="about.html">About me</a>
+          <a class="btn btn--ghost" href="research.html">Research</a>
         </p>
       </div>
       <figure class="hero__plant" aria-hidden="true">
@@ -82,57 +91,50 @@
     </div>
   </section>
 
-  <section class="sec strip" aria-labelledby="h-people">
+  <section class="sec research" aria-labelledby="h-research">
     <div class="wrap">
       <header class="sec__head sec__head--row">
         <div>
-          <p class="eyebrow">Who we are</p>
-          <h2 id="h-people">People</h2>
-        </div>
-        <a class="more-link" href="people.html">Everyone in the group <span aria-hidden="true">→</span></a>
-      </header>
-      <ul class="strip__list" id="people-strip"></ul>
-    </div>
-  </section>
-
-  <section class="sec where" aria-labelledby="h-where">
-    <div class="wrap">
-      <div class="where__card">
-        <div>
-          <p class="eyebrow">Where we sit</p>
-          <h2 id="h-where">Part of something larger</h2>
-        </div>
-        <div>
-          <p class="where__text" data-where></p>
-          <ul class="where__groups" data-belongs></ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec research" aria-labelledby="h-research">
-    <div class="wrap">
-      <header class="sec__head sec__head--split">
-        <div>
           <p class="eyebrow">Five areas</p>
-          <h2 id="h-research">What we work on</h2>
+          <h2 id="h-research">Research</h2>
         </div>
-        <p class="sec__lead" id="research-lead"></p>
+        <a class="more-link" href="research.html">All five in full <span aria-hidden="true">→</span></a>
       </header>
       <ul class="teasers" id="teasers"></ul>
     </div>
   </section>
 
-  <section class="sec latest" aria-labelledby="h-news">
+  <section class="sec sec--flush latest" aria-labelledby="h-news">
     <div class="wrap latest__grid">
-      <div class="news">
-        <h2 class="h-small" id="h-news">News</h2>
-        <ul class="news__list" id="news-list"></ul>
+      <div>
+        <p class="eyebrow">Latest</p>
+        <h2 id="h-news">News</h2>
       </div>
-      <aside class="nudge" aria-labelledby="h-nudge">
-        <p class="eyebrow" id="h-nudge">Working with us</p>
-        <p class="nudge__text" id="nudge-text"></p>
-        <p><a class="btn" href="join.html">Ways to work with us <span aria-hidden="true">→</span></a></p>
+      <ul class="news__list" id="news-list"></ul>
+    </div>
+  </section>
+
+  <section class="sec sec--flush strip" aria-labelledby="h-team">
+    <div class="wrap">
+      <header class="sec__head sec__head--row">
+        <div>
+          <p class="eyebrow">Who I work with</p>
+          <h2 id="h-team">Team</h2>
+        </div>
+        <a class="more-link" href="team.html">Meet the team <span aria-hidden="true">→</span></a>
+      </header>
+      <ul class="strip__list" id="people-strip"></ul>
+    </div>
+  </section>
+
+  <section class="sec sec--flush" aria-labelledby="h-nudge">
+    <div class="wrap">
+      <aside class="nudge">
+        <div>
+          <p class="eyebrow" id="h-nudge">Working with me</p>
+          <p class="nudge__text" id="nudge-text"></p>
+        </div>
+        <p><a class="btn" href="join.html">Ways to work with me <span aria-hidden="true">→</span></a></p>
       </aside>
     </div>
   </section>
@@ -142,15 +144,13 @@
   <div class="wrap">
     <div class="foot__grid">
       <div class="foot__id">
-        <p class="foot__name"><a href="index.html">Infectious Disease Modelling &amp; Health Emergencies</a></p>
-        <p class="foot__sub">Imperial College London</p>
-        <p class="foot__where" data-where></p>
-        <ul class="foot__groups" data-belongs></ul>
+        <p class="foot__name"><a href="index.html" data-me-name>OJ Watson</a></p>
+        <p class="foot__sub" data-me-subtitle>Infectious disease modelling · Imperial College London</p>
+        <p class="foot__addr" id="foot-address"></p>
       </div>
       <div>
         <h2 class="foot__h">Contact</h2>
         <p id="foot-email"></p>
-        <p class="foot__addr" id="foot-address"></p>
       </div>
       <div>
         <h2 class="foot__h">Elsewhere</h2>
@@ -159,7 +159,7 @@
     </div>
     <div class="foot__thanks">
       <p><span class="foot__k">Funded by</span> <span id="foot-funders"></span></p>
-      <p><span class="foot__k">We work with</span> <span id="foot-partners"></span></p>
+      <p><span class="foot__k">Partners</span> <span id="foot-partners"></span></p>
     </div>
   </div>
 </footer>

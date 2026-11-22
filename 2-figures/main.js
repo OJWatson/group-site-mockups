@@ -40,21 +40,75 @@
   }
   function num(i) { return String(i + 1).padStart(2, '0'); }
 
-  /* ---------- Home: one-liner, about, where we sit ---------- */
+  var ME = S.me || {};
+  function paras(box, list) { (list || []).forEach(function (p) { box.appendChild(el('p', { text: p })); }); }
+  function belongs(cls) {
+    return el('ul', { class: cls }, (S.belongs_to || []).map(function (g) { return el('li', {}, [g.url ? ext(g.url, g.name) : g.name]); }));
+  }
+  /* A photo, or initials on a tinted tile when there is no photo yet. */
+  function portrait(p, i, size, eager) {
+    var initials = p.name.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2);
+    return p.photo
+      ? el('img', { src: 'img/people/' + p.photo, alt: size ? '' : 'Photo of ' + p.name, width: size || 480, height: size || 480, loading: eager ? null : 'lazy', decoding: 'async' })
+      : el('div', { class: 'initials t' + (i % 3), 'aria-hidden': 'true', text: initials });
+  }
+
+  /* ---------- Every page: name and sub-line in the header and footer ---------- */
+  [].forEach.call(document.querySelectorAll('[data-me]'), function (n) {
+    var v = ME[n.getAttribute('data-me')]; if (v) n.textContent = v;
+  });
+
+  /* ---------- Home: introduction with a modest photo, team strip, pointer ---------- */
   (function () {
-    var ol = $('one-liner'); if (ol && S.one_liner) ol.textContent = S.one_liner;
-    var box = $('about-body');
-    if (box) {
-      var intro = S.intro || [];
-      if (intro[0]) box.appendChild(el('p', { class: 'lede', text: intro[0] }));
-      box.appendChild(el('div', { class: 'about-rest' }, intro.slice(1).map(function (p) { return el('p', { text: p }); })));
+    var box = $('intro-text');
+    if (box) paras(box, ME.home_intro);
+    var pic = $('intro-pic');
+    if (pic && ME.photo) pic.appendChild(el('img', { src: 'img/people/' + ME.photo, alt: 'Photo of ' + (ME.name || ''), width: 480, height: 480, decoding: 'async' }));
+    var strip = $('team-strip');
+    if (strip) (S.people || []).forEach(function (p, i) {
+      strip.appendChild(el('li', {}, [el('span', { class: 'av' }, [portrait(p, i, 72, false)]), p.name]));
+    });
+    var j = ME.join || {};
+    var h = $('h-join'); if (h && j.headline) h.textContent = j.headline;
+    var st = $('join-status'); if (st && j.status) st.textContent = j.status;
+  })();
+
+  /* ---------- About: background, CV, timeline, service, teaching, software, profiles ---------- */
+  (function () {
+    var about = ME.about || [];
+    var lead = $('about-lead'); if (lead && about[0]) lead.textContent = about[0];
+    var body = $('about-body'); if (body) paras(body, about.slice(1));
+    var cv = $('cv-box');
+    if (cv && ME.cv_url) {
+      cv.appendChild(el('a', { class: 'btn', href: ME.cv_url, text: 'Download my CV (PDF)', rel: 'noopener' }));
+      if (ME.cv_note) cv.appendChild(el('p', { class: 'cv-note', text: ME.cv_note }));
     }
-    var w = $('where-body');
-    if (w) {
-      if (S.where) w.appendChild(el('p', { class: 'where-text', text: S.where }));
-      if ((S.belongs_to || []).length) w.appendChild(el('ul', { class: 'belongs' }, S.belongs_to.map(function (g) {
-        return el('li', {}, [g.url ? ext(g.url, g.name) : g.name]);
-      })));
+    var tl = $('timeline');
+    if (tl) (ME.timeline || []).forEach(function (t) {
+      tl.appendChild(el('li', {}, [
+        el('p', { class: 'tl-when', text: t.when }),
+        el('h3', { class: 'tl-what', text: t.what }),
+        t.where ? el('p', { class: 'tl-where', text: t.where }) : null,
+        t.note ? el('p', { class: 'tl-note', text: t.note }) : null
+      ]));
+    });
+    [['service', ME.service], ['teaching', ME.teaching]].forEach(function (x) {
+      var ul = $(x[0]); if (ul) (x[1] || []).forEach(function (t) { ul.appendChild(el('li', { text: t })); });
+    });
+    var sw = $('software');
+    if (sw) (ME.software || []).forEach(function (p) {
+      sw.appendChild(el('li', { class: 'paper' }, [
+        el('a', { href: p.url, class: 'paper-title', text: p.name, rel: 'noopener' }),
+        el('span', { class: 'paper-meta', text: p.what })
+      ]));
+    });
+    var pr = $('profiles');
+    if (pr) {
+      var L = S.links || {};
+      var self = (S.people || []).filter(function (p) { return p.name === ME.name; })[0] || {};
+      [['Google Scholar', L.scholar], ['ORCID', L.orcid], ['GitHub', L.github], ['Bluesky', L.bluesky], ['Imperial profile', self.link]].forEach(function (x) {
+        if (x[1]) pr.appendChild(el('li', {}, [ext(x[1], x[0])]));
+      });
     }
   })();
 
@@ -86,6 +140,7 @@
     ]);
   }
   (function () {
+    var ri = $('research-intro'); if (ri && ME.research_intro) ri.textContent = ME.research_intro;
     var jump = $('jump');
     if (jump) (S.themes || []).forEach(function (t) {
       jump.appendChild(el('li', {}, [el('a', { class: 'chip', href: '#' + t.id, text: themeLabel(t.id) })]));
@@ -116,17 +171,14 @@
     });
   })();
 
-  /* ---------- People page ---------- */
+  /* ---------- Team page: everyone at the same size, then alumni and where the work sits ---------- */
   (function () {
+    var ti = $('team-intro'); if (ti && ME.team_intro) ti.textContent = ME.team_intro;
     var list = $('people-list');
     if (list) {
       (S.people || []).forEach(function (p, i) {
-        var initials = p.name.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2);
-        var pic = p.photo
-          ? el('img', { src: 'img/people/' + p.photo, alt: 'Photo of ' + p.name, width: 480, height: 480, loading: i < 4 ? null : 'lazy', decoding: 'async' })
-          : el('div', { class: 'initials t' + (i % 3), 'aria-hidden': 'true', text: initials });
         list.appendChild(el('li', { class: 'person' }, [
-          el('div', { class: 'person-pic' }, [pic]),
+          el('div', { class: 'person-pic' }, [portrait(p, i, 0, i < 4)]),
           el('h3', {}, [p.link ? ext(p.link, p.name) : p.name]),
           el('p', { class: 'person-role', text: p.role }),
           el('p', { class: 'person-topic', text: p.topic })
@@ -134,6 +186,11 @@
       });
       var hint = document.querySelector('.swipe-hint');
       if (hint) list.addEventListener('scroll', function () { hint.classList.toggle('used', list.scrollLeft > 24); }, { passive: true });
+    }
+    var w = $('where-body');
+    if (w) {
+      if (ME.where) w.appendChild(el('p', { class: 'where-text', text: ME.where }));
+      if ((S.belongs_to || []).length) w.appendChild(belongs('belongs'));
     }
     var al = $('alumni'); if (!al) return;
     if ((S.alumni || []).length) al.appendChild(el('section', { 'aria-labelledby': 'h-alumni' }, [
@@ -144,7 +201,7 @@
     ]));
     if ((S.masters_alumni || []).length) al.appendChild(el('section', { 'aria-labelledby': 'h-masters' }, [
       el('h2', { id: 'h-masters', text: 'Masters project students' }),
-      el('p', { class: 'past-note', text: 'With thanks to everyone who has done their Masters project with us:' }),
+      el('p', { class: 'past-note', text: 'With thanks to everyone who has done their Masters project with me:' }),
       el('ul', { class: 'name-list' }, S.masters_alumni.map(function (n) { return el('li', { text: n }); }))
     ]));
   })();
@@ -160,25 +217,25 @@
     });
   })();
 
-  /* ---------- Working with us ---------- */
+  /* ---------- Working with me ---------- */
   (function () {
-    var box = $('join-body'), j = S.join; if (!box || !j) return;
+    var box = $('join-body'), j = ME.join; if (!box || !j) return;
+    var h = $('join-headline'); if (h && j.headline) h.textContent = j.headline;
     box.appendChild(el('p', { class: 'notice', text: j.status }));
     box.appendChild(el('p', { class: 'join-lead', text: j.body }));
     box.appendChild(el('dl', { class: 'routes' }, (j.routes || []).map(function (r) {
       return el('div', {}, [el('dt', { text: r.who }), el('dd', { text: r.text })]);
     })));
     box.appendChild(el('p', { class: 'join-foot', text: j.footnote }));
-    if (S.links && S.links.email) box.appendChild(el('a', { class: 'btn', href: 'mailto:' + S.links.email, text: 'Email ' + S.links.email }));
+    if (S.links && S.links.email) box.appendChild(el('a', { class: 'btn', href: 'mailto:' + S.links.email, text: 'Write to me' }));
   })();
 
-  /* ---------- How we work ---------- */
+  /* ---------- How I work: headline and intro from me.norms; quotes and principles from norms ---------- */
   (function () {
-    var box = $('norms-body'), n = S.norms; if (!box || !n) return;
-    var intro = $('norms-intro'); if (intro && n.intro) intro.textContent = n.intro;
-    // Three of the quotes: the ones written in the group's voice. Indices into norms.quotes.
-    var pick = [1, 3, 5].map(function (i) { return (n.quotes || [])[i]; }).filter(Boolean);
-    box.appendChild(el('div', { class: 'quotes' }, pick.map(function (q) {
+    var box = $('norms-body'), n = S.norms || {}, m = ME.norms || {}; if (!box) return;
+    var h = $('norms-headline'); if (h && m.headline) h.textContent = m.headline;
+    var intro = $('norms-intro'); if (intro && m.intro) intro.textContent = m.intro;
+    box.appendChild(el('div', { class: 'quotes' }, (n.quotes || []).map(function (q) {
       return el('blockquote', {}, [el('p', { text: q })]);
     })));
     if ((n.principles || []).length) {
@@ -220,24 +277,26 @@
     if (note && S.publications_note) {
       note.textContent = S.publications_note + ' ';
       if (S.links && S.links.scholar) note.appendChild(ext(S.links.scholar, 'Go to Google Scholar'));
+      if (ME.cv_url) { note.appendChild(document.createTextNode('. The full list is also in ')); note.appendChild(ext(ME.cv_url, 'my CV (PDF)')); note.appendChild(document.createTextNode('.')); }
     }
   })();
 
   /* ---------- Footer, on every page ---------- */
   (function () {
     var box = $('footer-body'), L = S.links || {}; if (!box) return;
-    if (S.where || (S.belongs_to || []).length) box.appendChild(el('div', { class: 'footer-where' }, [
-      el('h2', { class: 'label', text: 'Where we sit' }),
-      S.where ? el('p', { text: S.where }) : null,
-      el('ul', { class: 'footer-belongs' }, (S.belongs_to || []).map(function (g) { return el('li', {}, [g.url ? ext(g.url, g.name) : g.name]); }))
+    var id = $('footer-id'); if (id && S.address) id.appendChild(el('p', { class: 'footer-address', text: S.address }));
+    if (ME.where || (S.belongs_to || []).length) box.appendChild(el('div', { class: 'footer-where' }, [
+      el('h2', { class: 'label', text: 'Where the work sits' }),
+      ME.where ? el('p', { text: ME.where }) : null,
+      belongs('footer-belongs')
     ]));
     var contact = el('ul', { class: 'footer-links' }, [
       L.email ? el('li', {}, [el('a', { href: 'mailto:' + L.email, text: L.email })]) : null,
       L.github ? el('li', {}, [ext(L.github, 'GitHub')]) : null,
       L.scholar ? el('li', {}, [ext(L.scholar, 'Google Scholar')]) : null
     ]);
-    box.appendChild(el('div', {}, [el('h2', { class: 'label', text: 'Contact' }), contact, S.address ? el('p', { text: S.address }) : null]));
-    if ((S.partners || []).length) box.appendChild(el('div', {}, [el('h2', { class: 'label', text: 'We work with' }), el('p', { text: S.partners.join(', ') + '.' })]));
+    box.appendChild(el('div', {}, [el('h2', { class: 'label', text: 'Contact' }), contact]));
+    if ((S.partners || []).length) box.appendChild(el('div', {}, [el('h2', { class: 'label', text: 'Partners' }), el('p', { text: S.partners.join(', ') + '.' })]));
     if ((S.funders || []).length) box.appendChild(el('div', {}, [el('h2', { class: 'label', text: 'Funders' }), el('p', { text: S.funders.join(', ') + '.' })]));
   })();
 
