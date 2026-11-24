@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OJ Watson · Infectious disease modelling · Imperial College London</title>
-<meta name="description" content="OJ Watson, Associate Professor in Infectious Disease Modelling and Health Emergencies at Imperial College London. Research areas, team, publications and how to get in touch.">
+<meta name="description" content="OJ Watson, Associate Professor in Infectious Disease Modelling and Health Emergencies at Imperial College London. Research areas, people, publications and how to get in touch.">
 <meta name="theme-color" content="#f6f4ee">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -19,12 +19,10 @@
   <nav class="nav" aria-label="Main">
     <div class="nav-scroll" id="nav-scroll">
       <a class="nav-home" href="index.html" aria-current="page">Home</a>
-      <a href="about.html">About</a>
       <a href="research.html">Research</a>
-      <a href="team.html">Team</a>
+      <a href="team.html">People</a>
       <a href="publications.html">Publications</a>
-      <a href="join.html">Working with me</a>
-      <a href="how-i-work.html">How I work</a>
+      <a href="join.html">Join</a>
     </div>
   </nav>
 </header>
@@ -42,50 +40,49 @@
     </div>
   </div>
 
-  <section class="wrap intro-sec" id="about" aria-labelledby="h-about">
-    <h2 class="sr" id="h-about">Introduction</h2>
-    <div class="intro">
-      <div class="intro-pic" id="intro-pic"></div>
-      <div class="intro-text">
-        <div id="intro-text"></div>
-        <a class="more-link" href="about.html">Background and CV</a>
+  <section class="wrap intro-sec" aria-labelledby="h-intro">
+    <h2 class="sr" id="h-intro">Introduction</h2>
+    <div class="intro-text" id="intro-text"></div>
+  </section>
+
+  <section class="section wrap" id="research" aria-labelledby="h-research">
+    <h2 id="h-research">Research areas</h2>
+    <ul class="tiles" id="tiles"></ul>
+  </section>
+
+  <section class="section wrap" id="about" aria-labelledby="h-about">
+    <div class="about">
+      <div class="about-pic" id="about-pic"></div>
+      <div class="about-main">
+        <h2 id="h-about">About me</h2>
+        <p class="about-short" id="about-short"></p>
+        <ol class="cv-lines" id="timeline"></ol>
+        <div class="about-actions" id="cv-box"></div>
+        <ul class="profiles" id="profiles" aria-label="Profiles"></ul>
       </div>
     </div>
   </section>
 
-  <section class="section wrap" id="research" aria-labelledby="h-research">
-    <div class="section-head">
-      <h2 id="h-research">Research areas</h2>
-      <a class="more-link" href="research.html">All five areas in full</a>
-    </div>
-    <ul class="teasers" id="teasers"></ul>
-  </section>
-
   <section class="section wrap" id="news" aria-labelledby="h-news">
-    <h2 id="h-news">News</h2>
+    <h2 class="label" id="h-news">News</h2>
     <ul class="news" id="news-list"></ul>
   </section>
 
-  <section class="section wrap" id="team" aria-labelledby="h-team">
-    <div class="section-head">
-      <h2 id="h-team">Team</h2>
-      <a class="more-link" href="team.html">Meet the team</a>
-    </div>
-    <ul class="strip" id="team-strip"></ul>
-  </section>
-
-  <section class="section wrap" aria-labelledby="h-join">
-    <h2 class="label" id="h-join">Working with me</h2>
-    <p class="pointer"><span id="join-status"></span> <a href="join.html">Routes to working with me</a></p>
+  <section class="section wrap closing" aria-labelledby="h-where">
+    <h2 class="label" id="h-where">Where the work sits</h2>
+    <div id="where-body"></div>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="wrap footer-grid" id="footer-body">
-    <div class="footer-id" id="footer-id">
-      <p class="footer-name" data-me="name">OJ Watson</p>
-      <p data-me="subtitle">Infectious disease modelling · Imperial College London</p>
+  <div class="wrap">
+    <div class="footer-grid" id="footer-body">
+      <div class="footer-id" id="footer-id">
+        <p class="footer-name" data-me="name">OJ Watson</p>
+        <p data-me="subtitle">Infectious disease modelling · Imperial College London</p>
+      </div>
     </div>
+    <p class="footer-mark" data-me="institution">Imperial College London</p>
   </div>
 </footer>
 

@@ -244,7 +244,7 @@ window.SITE = {
   {
    "name": "OJ Watson",
    "role": "Associate Professor",
-   "topic": "Works across all five research areas. Previously a Schmidt Science Fellow at LSHTM; PhD on malaria genetics and transmission modelling.",
+   "topic": "Works across all the research areas. Previously a Schmidt Science Fellow at LSHTM; PhD on malaria genetics and transmission modelling.",
    "photo": "oj-watson.jpg",
    "lead": true,
    "link": "https://profiles.imperial.ac.uk/o.watson15"
@@ -493,6 +493,81 @@ window.SITE = {
   ],
   "cv_url": "https://ojwatson.co.uk/files/cv.pdf",
   "cv_note": "My full CV (PDF), with publications, grants and teaching.",
+  "about_short": "I studied Natural Sciences and Systems Biology at Cambridge, then did an MRes and PhD at Imperial on building parasite genetic data into malaria transmission models. After postdocs at Brown and Imperial, and a Schmidt Science Fellowship at LSHTM working on mortality estimation, I came back to Imperial in 2023. I sit on WHO technical panels on malaria diagnostics and treatment.",
+  "areas": [
+   {
+    "id": "crises",
+    "title": "Health in humanitarian crises",
+    "short": "Counting what goes uncounted",
+    "body": "When conflict, drought or displacement disrupt a health system, the information needed to respond is often the first thing lost. We estimate mortality where deaths are not routinely registered, and model outbreak risk when routine immunisation is interrupted, through the Jameel Institute's RISE initiative with LSHTM, the Geneva Water Hub, WHO and humanitarian agencies.",
+    "papers": [
+     "10.1016/j.lanafr.2026.100072",
+     "10.1126/sciadv.adg7676",
+     "10.1038/s41467-021-22474-9"
+    ]
+   },
+   {
+    "id": "malaria",
+    "title": "Malaria: resistance to drugs and diagnostics",
+    "short": "Following a parasite that keeps changing",
+    "body": "Malaria parasites evolve: some now resist artemisinin-based treatments, others escape the rapid diagnostic tests used to find them. We combine transmission models with parasite genetic data to estimate where these parasites will spread and what control programmes can do, informing WHO guidance, with partners in Kenya, Uganda, Rwanda and Ethiopia and at Brown, UNC and Temple.",
+    "papers": [
+     "10.1038/s41591-025-03974-3",
+     "10.1016/S1473-3099(26)00237-9",
+     "10.1126/sciadv.aeb7618"
+    ]
+   },
+   {
+    "id": "vaccines",
+    "title": "Vaccines and pandemic preparedness",
+    "short": "What vaccination changed, and what could change next time",
+    "body": "How many deaths did vaccination prevent, and what would faster or fairer access have changed? We model the impact of vaccination programmes, for COVID-19 and for future pandemic threats, to inform decisions about allocation, timing and investment, including the 100 Days Mission and broadly protective coronavirus vaccines.",
+    "papers": [
+     "10.1371/journal.pmed.1004772",
+     "10.1016/S2214-109X(24)00286-9",
+     "10.1016/S1473-3099(22)00320-6"
+    ]
+   }
+  ],
+  "across": {
+   "title": "Across all three",
+   "body": "Two threads run through everything: models that the people making decisions can actually use, built with them and honest about uncertainty; and fast, open tools, from deep-learning surrogates of slow simulations to open-source code released with every paper.",
+   "papers": [
+    "10.1038/s41586-024-08564-w",
+    "10.1371/journal.pgph.0006519"
+   ]
+  },
+  "pub_filters": [
+   {
+    "id": "crises",
+    "label": "Humanitarian crises",
+    "themes": [
+     "crises"
+    ]
+   },
+   {
+    "id": "malaria",
+    "label": "Malaria",
+    "themes": [
+     "malaria"
+    ]
+   },
+   {
+    "id": "vaccines",
+    "label": "Vaccines",
+    "themes": [
+     "vaccines"
+    ]
+   },
+   {
+    "id": "methods",
+    "label": "Methods and tools",
+    "themes": [
+     "decisions",
+     "methods"
+    ]
+   }
+  ],
   "research_intro": "These are the questions I spend most of my time on. Each is shared work: the people and partners involved are named in each area.",
   "team_intro": "The people I work with day to day, listed alphabetically by first name. Everyone engaged in the research is a collaborator, and is listed as one.",
   "join": {
